@@ -3,16 +3,10 @@ package tourGuide.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import rewardCentral.RewardCentral;
 import tripPricer.TripPricer;
 
 @Configuration
-public class RewardsConfiguration {
-
-	@Bean
-	public RewardCentral getRewardCentral() {
-		return new RewardCentral();
-	}
+public class PricerConfiguration {
 
 	@Bean
 	public TripPricer getTripPricer() { return new TripPricer(); }

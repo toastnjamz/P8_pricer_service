@@ -9,31 +9,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tourGuide.domain.ProviderListWrapper;
-import tourGuide.service.RewardsService;
+import tourGuide.service.PricerService;
 
 import java.util.UUID;
 
 @RestController
 @Api(description="Rewards microservice for TourGuide")
-public class RewardsController {
+public class PricerController {
 
     @Autowired
-    private RewardsService rewardsService;
-    private final Logger logger = LoggerFactory.getLogger(RewardsController.class);
-
-
-    /**
-     * Gets the user's current reward points
-     * @param attractionId
-     * @param userId
-     * @return int of reward points
-     */
-    @RequestMapping("/reward-points")
-    public Integer getRewardPoints(@RequestParam UUID attractionId, @RequestParam UUID userId) {
-        logger.debug("Request made to getRewardPoints");
-        Integer rewardsPoints = new Integer(rewardsService.getRewardPoints(attractionId, userId));
-        return rewardsPoints;
-    }
+    private PricerService pricerService;
+    private final Logger logger = LoggerFactory.getLogger(PricerController.class);
 
     /**
      * Gets a list of a user's available trip deals
@@ -51,7 +37,7 @@ public class RewardsController {
                                             @RequestParam int cumulativeRewardPoints) {
         logger.debug("Request made to getTripDeals");
         ProviderListWrapper providerListWrapper = new ProviderListWrapper();
-        providerListWrapper.setProviderList(rewardsService.getTripDeals(tripPricerApiKey, userId, numberOfAdults,
+        providerListWrapper.setProviderList(pricerService.getTripDeals(tripPricerApiKey, userId, numberOfAdults,
                 numberOfChildren, tripDuration, cumulativeRewardPoints));
         return providerListWrapper;
     }
